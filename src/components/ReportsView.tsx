@@ -106,11 +106,11 @@ export default function ReportsView({ expenses, categories, settings }: ReportsV
       <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
           <h2 className="text-[14px] font-semibold text-[var(--text)]">Aggregated totals</h2>
-          <div className="flex items-center gap-2">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
             <select
               value={groupBy}
               onChange={(e) => setGroupBy(e.target.value as GroupBy)}
-              className="rounded-lg border border-[var(--border)] bg-[var(--bg)] px-3 py-1.5 text-[12.5px] text-[var(--text)] focus:outline-none"
+              className="w-full rounded-lg border border-[var(--border)] bg-[var(--bg)] px-2 py-2 text-[12.5px] text-[var(--text)] focus:outline-none sm:w-auto sm:py-1.5"
             >
               <option value="category">Group by category</option>
               <option value="paymentMethod">Group by payment method</option>
@@ -119,7 +119,7 @@ export default function ReportsView({ expenses, categories, settings }: ReportsV
             </select>
             <button
               onClick={exportAggregationCsv}
-              className="rounded-lg border border-[var(--border)] px-3 py-1.5 text-[12.5px] font-medium text-[var(--text-muted)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
+              className="w-full rounded-lg border border-[var(--border)] px-3 py-2 text-[12.5px] font-medium text-[var(--text-muted)] transition hover:bg-[var(--surface-hover)] hover:text-[var(--text)] sm:w-auto sm:py-1.5"
             >
               Export CSV
             </button>

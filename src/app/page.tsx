@@ -75,7 +75,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen bg-[var(--bg)]">
+    <div className="flex min-h-screen flex-col sm:flex-row">
       <Nav active={tab} onChange={setTab} onAdd={openAddForm} userName={settings.userName} />
 
       <main className="flex-1 overflow-x-hidden pb-20 sm:pb-0">
