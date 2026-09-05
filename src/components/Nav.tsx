@@ -1,12 +1,13 @@
 "use client";
 
-import { IconDashboard, IconList, IconChart, IconSettings, IconPlus } from "./Icons";
+import { IconDashboard, IconList, IconChart, IconSettings, IconPlus, IconPeople } from "./Icons";
 
-export type Tab = "dashboard" | "expenses" | "reports" | "settings";
+export type Tab = "dashboard" | "expenses" | "reports" | "settings" | "people";
 
 const items: { id: Tab; label: string; icon: typeof IconDashboard }[] = [
   { id: "dashboard", label: "Dashboard", icon: IconDashboard },
   { id: "expenses", label: "Expenses", icon: IconList },
+  { id: "people", label: "People", icon: IconPeople },
   { id: "reports", label: "Reports", icon: IconChart },
   { id: "settings", label: "Settings", icon: IconSettings },
 ];

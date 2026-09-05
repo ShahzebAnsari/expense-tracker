@@ -10,6 +10,8 @@ import ReportsView from "@/components/ReportsView";
 import SettingsView from "@/components/SettingsView";
 import { useExpenses, useCategories, useSettings } from "@/hooks/useAppData";
 import { Expense } from "@/lib/types";
+import { usePeople, useLendingTransactions } from "@/hooks/useLending";
+import PeopleView from "@/components/PeopleView";
 
 export default function Home() {
   const [tab, setTab] = useState<Tab>("dashboard");
@@ -26,6 +28,16 @@ export default function Home() {
     resetCategories,
     hydrated: categoriesReady,
   } = useCategories();
+
+  const { people, addPerson, updatePerson, deletePerson } = usePeople();
+
+  const {
+    transactions: lendingTxns,
+    addTransaction: addLendingTxn,
+    deleteTransaction: deleteLendingTxn,
+    deleteTransactionsForPerson,
+  } = useLendingTransactions();
+
   const {
     settings,
     updateSettings,
@@ -62,6 +74,11 @@ export default function Home() {
     }
   }
 
+  const handleDeletePerson = (id: string) => {
+    deletePerson(id);
+    deleteTransactionsForPerson(id); // cascade so history doesn't orphan
+  };
+
   function expenseCountByCategory(name: string) {
     return expenses.filter((e) => e.category === name).length;
   }
@@ -97,6 +114,18 @@ export default function Home() {
               settings={settings}
               onEdit={openEditForm}
               onDelete={handleDelete}
+            />
+          )}
+          {tab === "people" && (
+            <PeopleView
+              people={people}
+              transactions={lendingTxns}
+              currency={settings.currency}
+              onAddPerson={addPerson}
+              onUpdatePerson={updatePerson}
+              onDeletePerson={handleDeletePerson}
+              onAddTransaction={addLendingTxn}
+              onDeleteTransaction={deleteLendingTxn}
             />
           )}
           {tab === "reports" && (

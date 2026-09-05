@@ -32,3 +32,12 @@ export type DateRangePreset =
   | "custom";
 
 export type GroupBy = "category" | "paymentMethod" | "day" | "week" | "month";
+
+/**
+ * Append this line to the bottom of your existing src/lib/types.ts so the
+ * rest of the app can import Person/LendingTransaction alongside your
+ * existing types from "@/lib/types" if you prefer a single import source.
+ * (Optional — every new file already imports directly from "@/lib/lending-types".)
+ */
+export * from "./lending-types";
+
