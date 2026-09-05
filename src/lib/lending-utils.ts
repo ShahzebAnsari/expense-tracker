@@ -117,9 +117,7 @@ export async function shareOrDownloadPng(node: HTMLElement, filename: string, sh
       const res = await fetch(dataUrl);
       const blob = await res.blob();
       const file = new File([blob], filename, { type: "image/png" });
-      // @ts-expect-error - canShare typing varies across TS lib versions
       if (navigator.canShare({ files: [file] })) {
-        // @ts-expect-error - same as above
         await navigator.share({ files: [file], title: shareTitle });
         return;
       }
