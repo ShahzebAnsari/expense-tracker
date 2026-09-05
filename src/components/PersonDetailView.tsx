@@ -15,6 +15,7 @@ interface PersonDetailViewProps {
   onUpdatePerson: (data: { name: string; contact?: string; notes?: string }) => void;
   onDeletePerson: () => void;
   onAddTransaction: (data: Omit<LendingTransaction, "id" | "createdAt" | "personId">) => void;
+  onUpdateTransaction: (id: string, data: { date: string; amount: number; dueDate?: string; note?: string }) => void;
   onDeleteTransaction: (id: string) => void;
 }
 
@@ -40,9 +41,11 @@ export default function PersonDetailView({
   onUpdatePerson,
   onDeletePerson,
   onAddTransaction,
+  onUpdateTransaction,
   onDeleteTransaction,
 }: PersonDetailViewProps) {
   const [activeForm, setActiveForm] = useState<LendingTransactionType | null>(null);
+  const [editingTransaction, setEditingTransaction] = useState<LendingTransaction | null>(null);
   const [editOpen, setEditOpen] = useState(false);
   const timelineRef = useRef<HTMLDivElement>(null);
 
@@ -174,6 +177,20 @@ export default function PersonDetailView({
                     {formatMoney(t.amount, currency)}
                   </span>
                   <button
+                    onClick={() => setEditingTransaction(t)}
+                    className="text-[12px] text-[var(--text-muted)] hover:text-[var(--text)]"
+                    aria-label="Edit transaction"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path
+                        d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
                     onClick={() => onDeleteTransaction(t.id)}
                     className="text-[12px] text-[var(--text-muted)] hover:text-rose-400"
                     aria-label="Delete transaction"
@@ -215,6 +232,29 @@ export default function PersonDetailView({
               setActiveForm(null);
             }}
             onCancel={() => setActiveForm(null)}
+          />
+        )}
+      </Modal>
+
+      <Modal
+        open={editingTransaction !== null}
+        onClose={() => setEditingTransaction(null)}
+        title={editingTransaction ? `Edit ${TYPE_LABEL[editingTransaction.type].toLowerCase()} entry` : ""}
+      >
+        {editingTransaction && (
+          <LendingTransactionForm
+            type={editingTransaction.type}
+            initial={{
+              date: editingTransaction.date,
+              amount: editingTransaction.amount,
+              dueDate: editingTransaction.dueDate,
+              note: editingTransaction.note,
+            }}
+            onSubmit={(data) => {
+              onUpdateTransaction(editingTransaction.id, data);
+              setEditingTransaction(null);
+            }}
+            onCancel={() => setEditingTransaction(null)}
           />
         )}
       </Modal>

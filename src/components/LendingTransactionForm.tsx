@@ -5,6 +5,7 @@ import type { LendingTransactionType } from "@/lib/lending-types";
 
 interface LendingTransactionFormProps {
   type: LendingTransactionType;
+  initial?: { date: string; amount: number; dueDate?: string; note?: string };
   onSubmit: (data: { date: string; amount: number; dueDate?: string; note?: string }) => void;
   onCancel: () => void;
 }
@@ -20,12 +21,13 @@ function today() {
   return new Date().toISOString().slice(0, 10);
 }
 
-export default function LendingTransactionForm({ type, onSubmit, onCancel }: LendingTransactionFormProps) {
+export default function LendingTransactionForm({ type, initial, onSubmit, onCancel }: LendingTransactionFormProps) {
   const config = CONFIG[type];
-  const [date, setDate] = useState(today());
-  const [amount, setAmount] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [note, setNote] = useState("");
+  const isEditing = Boolean(initial);
+  const [date, setDate] = useState(initial?.date ?? today());
+  const [amount, setAmount] = useState(initial ? String(initial.amount) : "");
+  const [dueDate, setDueDate] = useState(initial?.dueDate ?? "");
+  const [note, setNote] = useState(initial?.note ?? "");
   const [error, setError] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
@@ -107,7 +109,7 @@ export default function LendingTransactionForm({ type, onSubmit, onCancel }: Len
           type="submit"
           className="rounded-xl bg-[var(--accent)] px-4 py-2 text-[13px] font-semibold text-[#161006] hover:bg-[var(--accent-strong)] active:scale-[0.98]"
         >
-          {config.title}
+          {isEditing ? "Save changes" : config.title}
         </button>
       </div>
     </form>

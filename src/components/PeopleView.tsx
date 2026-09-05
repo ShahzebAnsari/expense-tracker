@@ -15,6 +15,7 @@ interface PeopleViewProps {
   onUpdatePerson: (id: string, data: Partial<Omit<Person, "id" | "createdAt">>) => void;
   onDeletePerson: (id: string) => void;
   onAddTransaction: (data: Omit<LendingTransaction, "id" | "createdAt">) => void;
+  onUpdateTransaction: (id: string, data: { date: string; amount: number; dueDate?: string; note?: string }) => void;
   onDeleteTransaction: (id: string) => void;
 }
 
@@ -28,6 +29,7 @@ export default function PeopleView({
   onUpdatePerson,
   onDeletePerson,
   onAddTransaction,
+  onUpdateTransaction,
   onDeleteTransaction,
 }: PeopleViewProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -57,6 +59,7 @@ export default function PeopleView({
           setSelectedId(null);
         }}
         onAddTransaction={(data) => onAddTransaction({ ...data, personId: selectedPerson.id })}
+        onUpdateTransaction={onUpdateTransaction}
         onDeleteTransaction={onDeleteTransaction}
       />
     );

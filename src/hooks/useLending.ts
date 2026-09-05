@@ -45,10 +45,17 @@ export function useLendingTransactions() {
     setTransactions((prev) => prev.filter((t) => t.id !== id));
   };
 
+  const updateTransaction = (
+    id: string,
+    data: Partial<Omit<LendingTransaction, "id" | "createdAt" | "personId">>
+  ) => {
+    setTransactions((prev) => prev.map((t) => (t.id === id ? { ...t, ...data } : t)));
+  };
+
   // Call this when a person is deleted so their history doesn't linger orphaned.
   const deleteTransactionsForPerson = (personId: string) => {
     setTransactions((prev) => prev.filter((t) => t.personId !== personId));
   };
 
-  return { transactions, addTransaction, deleteTransaction, deleteTransactionsForPerson };
+  return { transactions, addTransaction, updateTransaction, deleteTransaction, deleteTransactionsForPerson };
 }

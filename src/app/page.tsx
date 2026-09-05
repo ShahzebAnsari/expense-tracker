@@ -34,6 +34,7 @@ export default function Home() {
   const {
     transactions: lendingTxns,
     addTransaction: addLendingTxn,
+    updateTransaction: updateLendingTxn,
     deleteTransaction: deleteLendingTxn,
     deleteTransactionsForPerson,
   } = useLendingTransactions();
@@ -125,6 +126,7 @@ export default function Home() {
               onUpdatePerson={updatePerson}
               onDeletePerson={handleDeletePerson}
               onAddTransaction={addLendingTxn}
+              onUpdateTransaction={updateLendingTxn}
               onDeleteTransaction={deleteLendingTxn}
             />
           )}
