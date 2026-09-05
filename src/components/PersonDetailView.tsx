@@ -2,7 +2,8 @@
 
 import { useRef, useState } from "react";
 import type { Person, PersonLedger, LendingTransaction, LendingTransactionType } from "@/lib/lending-types";
-import { exportPersonTimelineCSV, shareOrDownloadPng, formatMoney } from "@/lib/lending-utils";
+import { exportPersonTimelineCSV, shareOrDownloadPng } from "@/lib/lending-utils";
+import { formatAmount } from "@/lib/utils";
 import Modal from "./Modal";
 import PersonForm from "./PersonForm";
 import LendingTransactionForm from "./LendingTransactionForm";
@@ -93,12 +94,12 @@ export default function PersonDetailView({
           <p className="mt-2 text-[13.5px] text-[var(--text-muted)]">
             {direction === "they_owe_me" && (
               <>
-                Owes you <span className="font-semibold text-emerald-400">{formatMoney(outstanding, currency)}</span>
+                Owes you <span className="font-semibold text-emerald-400">{formatAmount(outstanding, currency)}</span>
               </>
             )}
             {direction === "i_owe_them" && (
               <>
-                You owe <span className="font-semibold text-rose-400">{formatMoney(outstanding, currency)}</span>
+                You owe <span className="font-semibold text-rose-400">{formatAmount(outstanding, currency)}</span>
               </>
             )}
             {direction === "settled" && <span className="font-semibold text-[var(--text-muted)]">Settled up</span>}
@@ -148,8 +149,8 @@ export default function PersonDetailView({
             {direction === "settled"
               ? "Settled"
               : direction === "they_owe_me"
-              ? `Owed to you: ${formatMoney(outstanding, currency)}`
-              : `You owe: ${formatMoney(outstanding, currency)}`}
+              ? `Owed to you: ${formatAmount(outstanding, currency)}`
+              : `You owe: ${formatAmount(outstanding, currency)}`}
           </span>
         </div>
         {ledger.transactions.length === 0 ? (
@@ -174,7 +175,7 @@ export default function PersonDetailView({
                       t.type === "lend" || t.type === "repay" ? "text-rose-400" : "text-emerald-400"
                     }`}
                   >
-                    {formatMoney(t.amount, currency)}
+                    {formatAmount(t.amount, currency)}
                   </span>
                   <button
                     onClick={() => setEditingTransaction(t)}

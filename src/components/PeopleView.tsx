@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from "react";
 import type { Person, LendingTransaction } from "@/lib/lending-types";
-import { getOverallLendingSummary, getPersonLedger, exportPeopleSummaryCSV, formatMoney } from "@/lib/lending-utils";
+import { getOverallLendingSummary, getPersonLedger, exportPeopleSummaryCSV } from "@/lib/lending-utils";
+import { formatAmount } from "@/lib/utils";
 import Modal from "./Modal";
 import PersonForm from "./PersonForm";
 import PersonDetailView from "./PersonDetailView";
@@ -88,11 +89,11 @@ export default function PeopleView({
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4">
           <p className="text-[13px] text-[var(--text-muted)]">You will receive</p>
-          <p className="mt-1 text-2xl font-semibold text-emerald-400">{formatMoney(summary.totalOwedToMe, currency)}</p>
+          <p className="mt-1 text-2xl font-semibold text-emerald-400">{formatAmount(summary.totalOwedToMe, currency)}</p>
         </div>
         <div className="rounded-xl border border-[var(--border)] bg-[var(--bg-elevated)] p-4">
           <p className="text-[13px] text-[var(--text-muted)]">You will pay</p>
-          <p className="mt-1 text-2xl font-semibold text-rose-400">{formatMoney(summary.totalIOwe, currency)}</p>
+          <p className="mt-1 text-2xl font-semibold text-rose-400">{formatAmount(summary.totalIOwe, currency)}</p>
         </div>
       </div>
 
@@ -218,7 +219,7 @@ function Section({
                     ? "No activity"
                     : ledger.direction === "settled"
                     ? "Settled"
-                    : formatMoney(ledger.outstanding, currency)}
+                    : formatAmount(ledger.outstanding, currency)}
                 </span>
               </button>
               <button

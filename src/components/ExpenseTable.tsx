@@ -35,7 +35,7 @@ export default function ExpenseTable({
   }
 
   return (
-    <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+    <div className="overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
       {/* Desktop table */}
       <table className="hidden w-full text-left sm:table">
         <thead>

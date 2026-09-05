@@ -58,19 +58,6 @@ export function getOverallLendingSummary(people: Person[], transactions: Lending
   };
 }
 
-/** Formats a number using the app's stored currency code (e.g. "INR", "USD"). */
-export function formatMoney(amount: number, currency: string): string {
-  try {
-    return new Intl.NumberFormat(undefined, {
-      style: "currency",
-      currency,
-      maximumFractionDigits: 2,
-    }).format(amount);
-  } catch {
-    return amount.toFixed(2);
-  }
-}
-
 function csvEscape(value: string | number): string {
   const str = String(value);
   return /[",\n]/.test(str) ? `"${str.replace(/"/g, '""')}"` : str;

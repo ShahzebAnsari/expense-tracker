@@ -64,8 +64,8 @@ export default function DashboardView({
         currency={settings.currency}
       />
 
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-5">
-        <div className="lg:col-span-3">
+      <div className="grid grid-cols-1 gap-5">
+        <div>
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-[14px] font-semibold text-[var(--text)]">
               Today&apos;s expenses
@@ -91,7 +91,7 @@ export default function DashboardView({
           </div>
         </div>
 
-        <div className="lg:col-span-2">
+        <div>
           <h2 className="mb-3 text-[14px] font-semibold text-[var(--text)]">
             This month by category
           </h2>
