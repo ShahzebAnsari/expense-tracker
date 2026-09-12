@@ -9,6 +9,7 @@ import ShareButton from "./ShareButton";
 import { CategoryPieChart } from "./Charts";
 
 interface DashboardViewProps {
+  username: string;
   expenses: Expense[];
   categories: Category[];
   settings: AppSettings;
@@ -18,6 +19,7 @@ interface DashboardViewProps {
 }
 
 export default function DashboardView({
+  username,
   expenses,
   categories,
   settings,
@@ -44,7 +46,7 @@ export default function DashboardView({
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-[19px] font-semibold tracking-tight text-[var(--text)]">
-            Hey {settings.userName.split(" ")[0] || "there"} 👋
+            Hey {username.split(" ")[0] || "there"} 👋
           </h1>
           <p className="text-[13px] text-[var(--text-faint)]">{formatFullDate()}</p>
         </div>

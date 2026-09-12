@@ -1,3 +1,8 @@
+export interface User {
+  name: string;
+  email: string;
+}
+
 export interface Expense {
   id: string;
   date: string; // yyyy-MM-dd
